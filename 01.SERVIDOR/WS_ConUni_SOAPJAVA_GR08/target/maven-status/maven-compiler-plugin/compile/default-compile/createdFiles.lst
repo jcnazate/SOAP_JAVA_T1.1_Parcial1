@@ -1,0 +1,6 @@
+ec\edu\monster\servicio\SumaService.class
+ec\edu\monster\prueba\Prueba01.class
+ec\edu\monster\ws\WSConUni.class
+com\mycompany\ws_conuni_soapjava_gr08\JakartaRestConfiguration.class
+com\mycompany\ws_conuni_soapjava_gr08\resources\JakartaEE10Resource.class
+ec\edu\monster\servicio\LoginService.class
