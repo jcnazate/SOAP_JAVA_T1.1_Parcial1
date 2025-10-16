@@ -1,5 +1,6 @@
 package com.mycompany.wsclientsuma;
 
+import com.mycompany.wsclientsuma.ws.Login;
 import com.mycompany.wsclientsuma.ws.WSConUni;
 import jakarta.xml.ws.Service;
 import java.net.MalformedURLException;
@@ -18,10 +19,24 @@ public class WSClientSuma {
     private static final QName SERVICE_NAME = new QName("http://ws.monster.edu.ec/", "WSConUni");
     private static final QName PORT_NAME = new QName("http://ws.monster.edu.ec/", "WSConUniPort");
 
+    private static final String DEFAULT_LOGIN_WSDL_URL =
+            "http://localhost:8080/WS_ConUni_SOAPJAVA_GR08/Login?wsdl";
+    private static final QName LOGIN_SERVICE_NAME = new QName("http://servicio.monster.edu.ec/", "Login");
+    private static final QName LOGIN_PORT_NAME = new QName("http://servicio.monster.edu.ec/", "LoginPort");
+
     public static void main(String[] args) {
         Locale.setDefault(new Locale("es", "EC"));
         Scanner scanner = new Scanner(System.in);
-        LoginManager loginManager = new LoginManager(scanner);
+
+        Login loginPort;
+        try {
+            loginPort = createLoginPort();
+        } catch (MalformedURLException ex) {
+            System.err.println("URL del servicio de login inválida: " + ex.getMessage());
+            return;
+        }
+
+        LoginManager loginManager = new LoginManager(scanner, loginPort);
 
         if (!loginManager.authenticate()) {
             return;
@@ -61,6 +76,13 @@ public class WSClientSuma {
         URL url = new URL(wsdlUrl);
         Service service = Service.create(url, SERVICE_NAME);
         return service.getPort(PORT_NAME, WSConUni.class);
+    }
+
+    private static Login createLoginPort() throws MalformedURLException {
+        String wsdlUrl = System.getProperty("login.wsdl", DEFAULT_LOGIN_WSDL_URL);
+        URL url = new URL(wsdlUrl);
+        Service service = Service.create(url, LOGIN_SERVICE_NAME);
+        return service.getPort(LOGIN_PORT_NAME, Login.class);
     }
 
     private static void printMenu() {

@@ -1,23 +1,22 @@
 package com.mycompany.wsclientsuma;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.mycompany.wsclientsuma.ws.Login;
 import java.util.Scanner;
 
 /**
- * Gestor sencillo de credenciales en memoria para la autenticación del cliente.
+ * Gestor que autentica contra el servicio SOAP de login existente en el
+ * servidor.
  */
 public class LoginManager {
 
     private static final int MAX_ATTEMPTS = 3;
 
-    private final Map<String, String> credentials = new HashMap<>();
     private final Scanner scanner;
+    private final Login loginPort;
 
-    public LoginManager(Scanner scanner) {
+    public LoginManager(Scanner scanner, Login loginPort) {
         this.scanner = scanner;
-        credentials.put("admin", "admin123");
-        credentials.put("user", "user123");
+        this.loginPort = loginPort;
     }
 
     public boolean authenticate() {
@@ -28,9 +27,14 @@ public class LoginManager {
             System.out.print("Contraseña: ");
             String password = scanner.nextLine().trim();
 
-            if (isValidCredential(username, password)) {
-                System.out.println("Inicio de sesión exitoso.\n");
-                return true;
+            try {
+                if (loginPort.login(username, password)) {
+                    System.out.println("Inicio de sesión exitoso.\n");
+                    return true;
+                }
+            } catch (Exception ex) {
+                System.out.println("No se pudo validar las credenciales: " + ex.getMessage() + "\n");
+                return false;
             }
 
             int remaining = MAX_ATTEMPTS - attempt;
@@ -40,9 +44,5 @@ public class LoginManager {
         }
         System.out.println("Ha excedido el número máximo de intentos.\n");
         return false;
-    }
-
-    private boolean isValidCredential(String username, String password) {
-        return password.equals(credentials.get(username));
     }
 }
