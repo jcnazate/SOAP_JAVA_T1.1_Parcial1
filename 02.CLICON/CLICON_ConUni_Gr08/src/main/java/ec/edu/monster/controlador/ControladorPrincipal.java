@@ -66,7 +66,7 @@ public class ControladorPrincipal {
                     case 4: // Celcius a Kelvin 
                         double celciusInput = vista.obtenercelcius();
                         double kelvinOutput = conversionModelo.celsiusAKelvin(celciusInput);
-                        vista.mostrarResultadoKelvinACelcius(kelvinOutput);
+                        vista.mostrarResultadoCelciusAKelvin(kelvinOutput);
                         break;
                     case 5: // Gramos a Kilogramos 
                         double gramosInput = vista.obtenergramos();
