@@ -14,6 +14,7 @@ import jakarta.jws.WebParam;
  */
 @WebService(serviceName = "Login")
 public class LoginService {
+   
     @WebMethod(operationName = "login")
     public boolean login(@WebParam(name = "user") String user,@WebParam(name = "password") String password) {
         return ((user.equals("monster")) && (password.equals("monster9")));
