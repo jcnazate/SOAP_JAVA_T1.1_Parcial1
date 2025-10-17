@@ -67,7 +67,7 @@
                                     <extraargs>
                                         <extraarg>-verbose</extraarg>
                                         <extraarg>-p</extraarg>
-                                        <extraarg>ec.edu.monster.wsdl</extraarg>
+                                        <extraarg>ec.edu.monster.ws</extraarg>
                                     </extraargs>
                                 </wsdlOption>
                             </wsdlOptions>

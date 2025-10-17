@@ -1,5 +1,5 @@
 
-package ec.edu.monster.wsdl;
+package ec.edu.monster.ws;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
