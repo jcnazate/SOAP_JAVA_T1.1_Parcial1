@@ -4,6 +4,12 @@
     Author     : jcnaz
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (session.getAttribute("autenticado") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -44,6 +50,7 @@
   .subtitle{ text-align:center; color:#334155; font-weight:600; margin-bottom:18px; }
 
   .section{ margin-top:18px; padding-top:10px; border-top:2px solid rgba(15,23,42,.08); }
+  .section form{ margin:0; }
   .section h3{
     font-family:'Fredoka One',cursive; font-size:1.05rem; color:#0f172a;
     letter-spacing:.3px; margin-bottom:10px; text-transform:uppercase;
@@ -79,6 +86,24 @@
   }
   .unit{ color:#475569; font-weight:800; margin-left:8px; }
 
+  .mensaje{
+    margin-top:18px;
+    padding:12px 14px;
+    border-radius:12px;
+    font-weight:600;
+    text-align:center;
+  }
+  .mensaje.error{
+    background:rgba(239,68,68,.12);
+    color:#991b1b;
+    border:1px solid rgba(239,68,68,.35);
+  }
+  .mensaje.ok{
+    background:rgba(34,197,94,.12);
+    color:#166534;
+    border:1px solid rgba(34,197,94,.35);
+  }
+
   .back{
     display:block; margin:20px auto 0; text-align:center; text-decoration:none;
     padding:12px 16px; border-radius:12px; width:100%;
@@ -99,53 +124,48 @@
     <!-- ===== K -> °C ===== -->
     <div class="section" id="kToC">
       <h3>De Kelvin a Celsius</h3>
-      <label for="kInput">Valor (K)</label>
-      <div class="row">
-        <input type="number" id="kInput" step="any" placeholder="Ingresa el valor en K">
-        <button type="button" class="btn" id="btnKToC">Convertir</button>
-      </div>
+      <form action="SoapController" method="post" autocomplete="off">
+        <input type="hidden" name="action" value="temperatura">
+        <input type="hidden" name="tipo" value="kToC">
+
+        <label for="kInput">Valor (K)</label>
+        <div class="row">
+          <input type="number" id="kInput" name="valor" step="any" placeholder="Ingresa el valor en K" required
+                 value="<%= request.getAttribute("valorK") != null ? request.getAttribute("valorK") : "" %>">
+          <button type="submit" class="btn">Convertir</button>
+        </div>
+      </form>
       <div class="result">
-        <span id="cOut">0.00</span><span class="unit">°C</span>
+        <span><%= request.getAttribute("resultadoKToC") != null ? request.getAttribute("resultadoKToC") : "0.00" %></span><span class="unit">°C</span>
       </div>
     </div>
 
     <!-- ===== °C -> K ===== -->
     <div class="section" id="cToK">
       <h3>De Celsius a Kelvin</h3>
-      <label for="cInput">Valor (°C)</label>
-      <div class="row">
-        <input type="number" id="cInput" step="any" placeholder="Ingresa el valor en °C">
-        <button type="button" class="btn" id="btnCToK">Convertir</button>
-      </div>
+      <form action="SoapController" method="post" autocomplete="off">
+        <input type="hidden" name="action" value="temperatura">
+        <input type="hidden" name="tipo" value="cToK">
+
+        <label for="cInput">Valor (°C)</label>
+        <div class="row">
+          <input type="number" id="cInput" name="valor" step="any" placeholder="Ingresa el valor en °C" required
+                 value="<%= request.getAttribute("valorC") != null ? request.getAttribute("valorC") : "" %>">
+          <button type="submit" class="btn">Convertir</button>
+        </div>
+      </form>
       <div class="result">
-        <span id="kOut">0.00</span><span class="unit">K</span>
+        <span><%= request.getAttribute("resultadoCToK") != null ? request.getAttribute("resultadoCToK") : "0.00" %></span><span class="unit">K</span>
       </div>
     </div>
 
+    <% if (request.getAttribute("error") != null) { %>
+      <div class="mensaje error"><%= request.getAttribute("error") %></div>
+    <% } else if (request.getAttribute("resultadoKToC") != null || request.getAttribute("resultadoCToK") != null) { %>
+      <div class="mensaje ok">Conversión realizada correctamente.</div>
+    <% } %>
+
     <a class="back" href="menu.jsp">Regresar al menú</a>
   </section>
-
-<script>
-  const fmt = n => (isFinite(n) ? Number(n).toFixed(2) : '0.00');
-
-  // K -> °C   (°C = K - 273.15)
-  const kIn  = document.getElementById('kInput');
-  const cOut = document.getElementById('cOut');
-  document.getElementById('btnKToC').addEventListener('click', () => {
-    const K = parseFloat(kIn.value);
-    cOut.textContent = fmt(K - 273.15);
-  });
-  kIn.addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('btnKToC').click(); });
-
-  // °C -> K   (K = °C + 273.15)
-  const cIn  = document.getElementById('cInput');
-  const kOut = document.getElementById('kOut');
-  document.getElementById('btnCToK').addEventListener('click', () => {
-    const C = parseFloat(cIn.value);
-    kOut.textContent = fmt(C + 273.15);
-  });
-  cIn.addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('btnCToK').click(); });
-</script>
-
 </body>
 </html>

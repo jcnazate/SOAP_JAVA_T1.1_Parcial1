@@ -4,6 +4,12 @@
     Author     : jcnaz
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (session.getAttribute("autenticado") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -44,6 +50,7 @@
   .subtitle{ text-align:center; color:#334155; font-weight:600; margin-bottom:18px; }
 
   .section{ margin-top:18px; padding-top:10px; border-top:2px solid rgba(15,23,42,.08); }
+  .section form{ margin:0; }
   .section h3{
     font-family:'Fredoka One',cursive; font-size:1.05rem; color:#0f172a;
     letter-spacing:.3px; margin-bottom:10px; text-transform:uppercase;
@@ -79,6 +86,24 @@
   }
   .unit{ color:#475569; font-weight:800; margin-left:8px; }
 
+  .mensaje{
+    margin-top:18px;
+    padding:12px 14px;
+    border-radius:12px;
+    font-weight:600;
+    text-align:center;
+  }
+  .mensaje.error{
+    background:rgba(239,68,68,.12);
+    color:#991b1b;
+    border:1px solid rgba(239,68,68,.35);
+  }
+  .mensaje.ok{
+    background:rgba(34,197,94,.12);
+    color:#166534;
+    border:1px solid rgba(34,197,94,.35);
+  }
+
   .back{
     display:block; margin:20px auto 0; text-align:center; text-decoration:none;
     padding:12px 16px; border-radius:12px; width:100%;
@@ -99,54 +124,48 @@
     <!-- ===== CM -> IN ===== -->
     <div class="section" id="cmToIn">
       <h3>De centímetros a pulgadas</h3>
-      <label for="cmInput">Valor (cm)</label>
-      <div class="row">
-        <input type="number" id="cmInput" step="any" placeholder="Ingresa el valor en cm">
-        <button type="button" class="btn" id="btnCmToIn">Convertir</button>
-      </div>
+      <form action="SoapController" method="post" autocomplete="off">
+        <input type="hidden" name="action" value="longitud">
+        <input type="hidden" name="tipo" value="cmToIn">
+
+        <label for="cmInput">Valor (cm)</label>
+        <div class="row">
+          <input type="number" id="cmInput" name="valor" step="any" placeholder="Ingresa el valor en cm" required
+                 value="<%= request.getAttribute("valorCm") != null ? request.getAttribute("valorCm") : "" %>">
+          <button type="submit" class="btn">Convertir</button>
+        </div>
+      </form>
       <div class="result">
-        <span id="inOut">0.00</span><span class="unit">in</span>
+        <span><%= request.getAttribute("resultadoCmToIn") != null ? request.getAttribute("resultadoCmToIn") : "0.00" %></span><span class="unit">in</span>
       </div>
     </div>
 
     <!-- ===== IN -> CM ===== -->
     <div class="section" id="inToCm">
       <h3>De pulgadas a centímetros</h3>
-      <label for="inInput">Valor (in)</label>
-      <div class="row">
-        <input type="number" id="inInput" step="any" placeholder="Ingresa el valor en in">
-        <button type="button" class="btn" id="btnInToCm">Convertir</button>
-      </div>
+      <form action="SoapController" method="post" autocomplete="off">
+        <input type="hidden" name="action" value="longitud">
+        <input type="hidden" name="tipo" value="inToCm">
+
+        <label for="inInput">Valor (in)</label>
+        <div class="row">
+          <input type="number" id="inInput" name="valor" step="any" placeholder="Ingresa el valor en in" required
+                 value="<%= request.getAttribute("valorIn") != null ? request.getAttribute("valorIn") : "" %>">
+          <button type="submit" class="btn">Convertir</button>
+        </div>
+      </form>
       <div class="result">
-        <span id="cmOut">0.00</span><span class="unit">cm</span>
+        <span><%= request.getAttribute("resultadoInToCm") != null ? request.getAttribute("resultadoInToCm") : "0.00" %></span><span class="unit">cm</span>
       </div>
     </div>
 
+    <% if (request.getAttribute("error") != null) { %>
+      <div class="mensaje error"><%= request.getAttribute("error") %></div>
+    <% } else if (request.getAttribute("resultadoCmToIn") != null || request.getAttribute("resultadoInToCm") != null) { %>
+      <div class="mensaje ok">Conversión realizada correctamente.</div>
+    <% } %>
+
     <a class="back" href="menu.jsp">Regresar al menú</a>
   </section>
-
-<script>
-  const fmt = n => (isFinite(n) ? Number(n).toFixed(2) : '0.00');
-  const INCH_IN_CM = 2.54;
-
-  // CM -> IN
-  const cmIn  = document.getElementById('cmInput');
-  const inOut = document.getElementById('inOut');
-  document.getElementById('btnCmToIn').addEventListener('click', () => {
-    const cm = parseFloat(cmIn.value);
-    inOut.textContent = fmt(cm / INCH_IN_CM);
-  });
-  cmIn.addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('btnCmToIn').click(); });
-
-  // IN -> CM
-  const inIn  = document.getElementById('inInput');
-  const cmOut = document.getElementById('cmOut');
-  document.getElementById('btnInToCm').addEventListener('click', () => {
-    const inches = parseFloat(inIn.value);
-    cmOut.textContent = fmt(inches * INCH_IN_CM);
-  });
-  inIn.addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('btnInToCm').click(); });
-</script>
-
 </body>
 </html>

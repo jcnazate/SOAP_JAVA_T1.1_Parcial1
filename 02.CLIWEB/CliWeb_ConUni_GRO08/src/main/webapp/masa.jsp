@@ -4,6 +4,12 @@
     Author     : jcnaz
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (session.getAttribute("autenticado") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -53,6 +59,7 @@
     padding-top:10px;
     border-top:2px solid rgba(15,23,42,.08);
   }
+  .section form{ margin:0; }
   .section h3{
     font-family:'Fredoka One',cursive;
     font-size:1.05rem; color:#0f172a; letter-spacing:.3px; margin-bottom:10px;
@@ -91,11 +98,29 @@
 
   .result{
     margin-top:10px; padding:12px 14px;
-    border-radius:12px; background:#ffffffc9; 
+    border-radius:12px; background:#ffffffc9;
     box-shadow:inset 0 0 0 2px rgba(15,23,42,.06);
     color:#0f172a; font-weight:700; display:flex; justify-content:space-between; align-items:center;
   }
   .unit{ color:#475569; font-weight:800; margin-left:8px; }
+
+  .mensaje{
+    margin-top:18px;
+    padding:12px 14px;
+    border-radius:12px;
+    font-weight:600;
+    text-align:center;
+  }
+  .mensaje.error{
+    background:rgba(239,68,68,.12);
+    color:#991b1b;
+    border:1px solid rgba(239,68,68,.35);
+  }
+  .mensaje.ok{
+    background:rgba(34,197,94,.12);
+    color:#166534;
+    border:1px solid rgba(34,197,94,.35);
+  }
 
   .back{
     display:block; margin:20px auto 0; text-align:center; text-decoration:none;
@@ -117,54 +142,48 @@
     <!-- ===== KG -> G ===== -->
     <div class="section" id="kgToG">
       <h3>De kilogramos a gramos</h3>
-      <label for="kgInput">Valor (kg)</label>
-      <div class="row">
-        <input type="number" id="kgInput" step="any" placeholder="Ingresa el valor en kg">
-        <button type="button" class="btn" id="btnKgToG">Convertir</button>
-      </div>
+      <form action="SoapController" method="post" autocomplete="off">
+        <input type="hidden" name="action" value="masa">
+        <input type="hidden" name="tipo" value="kgToG">
+
+        <label for="kgInput">Valor (kg)</label>
+        <div class="row">
+          <input type="number" id="kgInput" name="valor" step="any" placeholder="Ingresa el valor en kg" required
+                 value="<%= request.getAttribute("valorKg") != null ? request.getAttribute("valorKg") : "" %>">
+          <button type="submit" class="btn">Convertir</button>
+        </div>
+      </form>
       <div class="result">
-        <span id="gOut">0.00</span><span class="unit">g</span>
+        <span><%= request.getAttribute("resultadoKgToG") != null ? request.getAttribute("resultadoKgToG") : "0.00" %></span><span class="unit">g</span>
       </div>
     </div>
 
     <!-- ===== G -> KG ===== -->
     <div class="section" id="gToKg">
       <h3>De gramos a kilogramos</h3>
-      <label for="gInput">Valor (g)</label>
-      <div class="row">
-        <input type="number" id="gInput" step="any" placeholder="Ingresa el valor en g">
-        <button type="button" class="btn" id="btnGToKg">Convertir</button>
-      </div>
+      <form action="SoapController" method="post" autocomplete="off">
+        <input type="hidden" name="action" value="masa">
+        <input type="hidden" name="tipo" value="gToKg">
+
+        <label for="gInput">Valor (g)</label>
+        <div class="row">
+          <input type="number" id="gInput" name="valor" step="any" placeholder="Ingresa el valor en g" required
+                 value="<%= request.getAttribute("valorG") != null ? request.getAttribute("valorG") : "" %>">
+          <button type="submit" class="btn">Convertir</button>
+        </div>
+      </form>
       <div class="result">
-        <span id="kgOut">0.00</span><span class="unit">kg</span>
+        <span><%= request.getAttribute("resultadoGToKg") != null ? request.getAttribute("resultadoGToKg") : "0.00" %></span><span class="unit">kg</span>
       </div>
     </div>
 
+    <% if (request.getAttribute("error") != null) { %>
+      <div class="mensaje error"><%= request.getAttribute("error") %></div>
+    <% } else if (request.getAttribute("resultadoKgToG") != null || request.getAttribute("resultadoGToKg") != null) { %>
+      <div class="mensaje ok">Conversión realizada correctamente.</div>
+    <% } %>
+
     <a class="back" href="menu.jsp">Regresar al menú</a>
   </section>
-
-<script>
-  // Helpers
-  const fmt = n => (isFinite(n) ? Number(n).toFixed(2) : '0.00');
-
-  // KG -> G
-  const kgIn  = document.getElementById('kgInput');
-  const gOut  = document.getElementById('gOut');
-  document.getElementById('btnKgToG').addEventListener('click', () => {
-    const kg = parseFloat(kgIn.value);
-    gOut.textContent = fmt(kg * 1000);
-  });
-  kgIn.addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('btnKgToG').click(); });
-
-  // G -> KG
-  const gIn   = document.getElementById('gInput');
-  const kgOut = document.getElementById('kgOut');
-  document.getElementById('btnGToKg').addEventListener('click', () => {
-    const g = parseFloat(gIn.value);
-    kgOut.textContent = fmt(g / 1000);
-  });
-  gIn.addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('btnGToKg').click(); });
-</script>
-
 </body>
 </html>
