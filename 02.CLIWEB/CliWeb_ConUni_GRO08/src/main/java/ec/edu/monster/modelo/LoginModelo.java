@@ -4,8 +4,6 @@
  */
 package ec.edu.monster.modelo;
 
-import ec.edu.monster.utils.HashUtil;
-import ec.edu.monster.ws.Login;
 import ec.edu.monster.ws.LoginService;
 import ec.edu.monster.ws.Login_Service;
 
@@ -24,8 +22,7 @@ public class LoginModelo {
     // Método para autenticar al usuario
     public boolean autenticar(String usuario, String contraseña) {
         try {
-            String contraseñaHasheada = HashUtil.hashSHA256(contraseña);
-            return loginServicio.login(usuario, contraseñaHasheada);
+            return loginServicio.login(usuario, contraseña);
         } catch (Exception e) {
             throw new RuntimeException("Error al autenticar: " + e.getMessage());
         }
