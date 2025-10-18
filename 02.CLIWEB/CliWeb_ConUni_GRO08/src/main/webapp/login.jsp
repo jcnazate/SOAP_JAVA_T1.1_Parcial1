@@ -377,15 +377,16 @@
                     <p>Cliente Web</p>
                 </div>
 
-                <form>
+                <form action="SoapController" method="post">
+                    <input type="hidden" name="action" value="login">
                     <div class="form-group">
                         <label for="username">Usuario</label>
-                        <input type="text" id="username" placeholder="Ingresa tu usuario" required>
+                        <input type="text" id="username" name="user" placeholder="Ingresa tu usuario" required>
                     </div>
 
                     <div class="form-group">
                         <label for="password">Contraseña</label>
-                        <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+                        <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
                     </div>
                     <% if (request.getAttribute("error") != null) { %>
                         <p class="error"><%= request.getAttribute("error") %></p>
