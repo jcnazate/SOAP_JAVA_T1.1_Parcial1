@@ -35,7 +35,9 @@ public class SoapController extends HttpServlet{
         // Si no hay sesión o el usuario no está autenticado, mostrar la página de login
         if (session == null || session.getAttribute("autenticado") == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        } 
+        } else {
+            response.sendRedirect("menu.jsp");
+        }
     }
 
     @Override
@@ -51,7 +53,7 @@ public class SoapController extends HttpServlet{
                 boolean autenticado = loginModelo.autenticar(user, password);
                 if (autenticado) {
                     session.setAttribute("autenticado", true);
-                    response.sendRedirect("conversion.jsp");
+                    response.sendRedirect("menu.jsp");
                 } else {
                     request.setAttribute("error", "Usuario o contraseña incorrectos");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -67,15 +69,15 @@ public class SoapController extends HttpServlet{
             }
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Por favor, ingrese un valor numérico válido");
-            request.getRequestDispatcher("conversion.jsp").forward(request, response);
+            request.getRequestDispatcher("menu.jsp").forward(request, response);
         } catch (Exception e) {
             request.setAttribute("error", "Error: " + e.getMessage());
             if ("login".equals(action)) {
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
-                request.getRequestDispatcher("conversion.jsp").forward(request, response);
+                request.getRequestDispatcher("menu.jsp").forward(request, response);
             }
         }
     }
-    
+
 }

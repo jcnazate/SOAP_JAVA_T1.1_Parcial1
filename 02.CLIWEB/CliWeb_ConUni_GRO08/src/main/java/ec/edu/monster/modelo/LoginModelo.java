@@ -25,7 +25,7 @@ public class LoginModelo {
     public boolean autenticar(String usuario, String contraseña) {
         try {
             String contraseñaHasheada = HashUtil.hashSHA256(contraseña);
-            return loginServicio.login(usuario, contraseñaHasheada);
+            return loginServicio.login(usuario, contraseña);
         } catch (Exception e) {
             throw new RuntimeException("Error al autenticar: " + e.getMessage());
         }
