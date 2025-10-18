@@ -4,9 +4,10 @@
  */
 package ec.edu.monster.servicio;
 
-import jakarta.jws.WebService;
+import ec.edu.monster.utils.HashUtil;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
+import jakarta.jws.WebService;
 
 /**
  *
@@ -16,7 +17,30 @@ import jakarta.jws.WebParam;
 public class LoginService {
    
     @WebMethod(operationName = "login")
-    public boolean login(@WebParam(name = "user") String user,@WebParam(name = "password") String password) {
-        return ((user.equals("monster")) && (password.equals("monster9")));
+    public boolean login(@WebParam(name = "user") String user, @WebParam(name = "password") String password) {
+        if (user == null || password == null) {
+            return false;
+        }
+
+        user = user.trim();
+        password = password.trim();
+
+        if (!"monster".equals(user)) {
+            return false;
+        }
+
+        final String storedPassword = "monster9";
+        final String storedHash = HashUtil.hashSHA256(storedPassword);
+
+        if (storedPassword.equals(password)) {
+            return true;
+        }
+
+        if (storedHash.equalsIgnoreCase(password)) {
+            return true;
+        }
+
+        String providedHash = HashUtil.hashSHA256(password);
+        return storedHash.equalsIgnoreCase(providedHash);
     }
 }

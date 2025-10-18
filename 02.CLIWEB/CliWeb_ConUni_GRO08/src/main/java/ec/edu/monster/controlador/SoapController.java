@@ -50,6 +50,12 @@ public class SoapController extends HttpServlet{
             if ("login".equals(action)) {
                 String user = request.getParameter("user");
                 String password = request.getParameter("password");
+                if (user != null) {
+                    user = user.trim();
+                }
+                if (password != null) {
+                    password = password.trim();
+                }
                 boolean autenticado = loginModelo.autenticar(user, password);
                 if (autenticado) {
                     session.setAttribute("autenticado", true);
