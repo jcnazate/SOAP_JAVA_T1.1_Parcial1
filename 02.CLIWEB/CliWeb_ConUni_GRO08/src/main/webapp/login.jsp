@@ -1,9 +1,16 @@
+<%-- 
+    Document   : login
+    Created on : 17 oct 2025, 18:10:38
+    Author     : jcnaz
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cliente Web GR08 - Login</title>
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Para responsividad -->
+    <title>Login - Conversión de Unidades</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -14,7 +21,7 @@
 
         body {
             font-family: 'Fredoka', sans-serif;
-            background: linear-gradient(135deg, #142351 0%, #104367 50%, #0f3d2a 100%);
+            background: linear-gradient(135deg, #05abda 0%, #b2c7db 50%, #e4f5f8 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -36,7 +43,8 @@
 
         .circle {
             position: absolute;
-            background: rgba(107, 84, 148, 0.15);
+            background: #e4dcee;   /* color solicitado */
+            opacity: 0.6;  
             border-radius: 50%;
             animation: float 20s infinite ease-in-out;
         }
@@ -155,7 +163,7 @@
         .header h1 {
             font-family: 'Fredoka One', cursive;
             font-size: 2.5rem;
-            color: #05abda;
+            color: #b2c7db ;
             text-shadow: 3px 3px 0px rgba(107, 84, 148, 0.4), 
                          6px 6px 0px rgba(0, 0, 0, 0.2);
             margin-bottom: 10px;
@@ -211,7 +219,7 @@
         label {
             display: block;
             margin-bottom: 8px;
-            color: #91c6e1;
+            color: #6c5494;
             font-weight: 600;
             font-size: 0.95rem;
             text-transform: uppercase;
@@ -247,7 +255,7 @@
         .login-btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #b2c7db 0%, #05abda 100%);
+            background: linear-gradient(135deg, #947cbc 0%, #05abda 100%);
             color: white;
             border: none;
             border-radius: 12px;
@@ -271,7 +279,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.2);
+            background: gradient(135deg, #947cbc 0%, #e4dcee 100%);
             transition: left 0.3s ease;
         }
 
@@ -349,48 +357,49 @@
             }
         }
     </style>
-</head>
-<body>
-    <!-- <CHANGE> Agregar círculos morados de fondo -->
-    <div class="background-circles">
-        <div class="circle circle-large"></div>
-        <div class="circle circle-medium"></div>
-        <div class="circle circle-small"></div>
-        <div class="circle circle-medium-2"></div>
-        <div class="circle circle-small-2"></div>
-    </div>
+    
+    </head>
+        <body>
+        <!-- <CHANGE> Agregar círculos morados de fondo -->
+        <div class="background-circles">
+            <div class="circle circle-large"></div>
+            <div class="circle circle-medium"></div>
+            <div class="circle circle-small"></div>
+            <div class="circle circle-medium-2"></div>
+            <div class="circle circle-small-2"></div>
+        </div>
 
-    <div class="container">
-        <div class="login-section">
-            <div class="header">
-                <!-- <CHANGE> Cambiar texto a "Cliente Web GR08" -->
-                <h1>GR08</h1>
-                <p>Cliente Web</p>
+        <div class="container">
+            <div class="login-section">
+                <div class="header">
+                    <!-- <CHANGE> Cambiar texto a "Cliente Web GR08" -->
+                    <h1>Conversión de Unidades GR08</h1>
+                    <p>Cliente Web</p>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <label for="username">Usuario</label>
+                        <input type="text" id="username" placeholder="Ingresa tu usuario" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+                    </div>
+                    <% if (request.getAttribute("error") != null) { %>
+                        <p class="error"><%= request.getAttribute("error") %></p>
+                    <% } %>
+
+                    <button type="submit" class="login-btn">Ingresar</button>
+
+
+                </form>
             </div>
 
-            <form>
-                <div class="form-group">
-                    <label for="username">Usuario</label>
-                    <input type="text" id="username" placeholder="Ingresa tu usuario" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
-                </div>
-                <% if (request.getAttribute("error") != null) { %>
-                    <p class="error"><%= request.getAttribute("error") %></p>
-                <% } %>
-
-                <button type="submit" class="login-btn">Ingresar</button>
-
-               
-            </form>
+            <div class="sullivan-section">
+                <img src="Imagenes/sullivan.png" alt="Sullivan - Monsters Inc" class="sullivan-img">
+            </div>
         </div>
-
-        <div class="sullivan-section">
-            <img src="Imagenes/sullivan.png" alt="Sullivan - Monsters Inc" class="sullivan-img">
-        </div>
-    </div>
-</body>
+    </body>
 </html>
