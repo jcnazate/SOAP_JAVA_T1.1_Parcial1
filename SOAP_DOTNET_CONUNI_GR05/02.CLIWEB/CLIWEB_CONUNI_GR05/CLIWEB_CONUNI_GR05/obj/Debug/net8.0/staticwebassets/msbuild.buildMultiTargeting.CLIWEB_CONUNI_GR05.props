@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\CLIWEB_CONUNI_GR05.props" />
+</Project>

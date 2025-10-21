@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_next.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#03A9F4"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- ImageView para mostrar el logo -->
+    <ImageView
+        android:layout_width="177dp"
+        android:layout_height="146dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/sully2" />
+
+    <!-- Botones con estilo -->
+
+    <Button
+        android:id="@+id/buttonInchesToCentimeters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="#ABC34A"
+        android:text="Pulgadas a Centímetros"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/buttonCentimetersToInches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="#ABC34A"
+        android:text="Centímetros a Pulgadas"
+        android:textColor="@color/black" />
+
+</LinearLayout>

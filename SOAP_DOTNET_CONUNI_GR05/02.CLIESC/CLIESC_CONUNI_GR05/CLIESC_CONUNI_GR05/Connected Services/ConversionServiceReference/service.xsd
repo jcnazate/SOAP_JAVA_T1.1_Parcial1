@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="PulgadasACentimetros">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pulgadas" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PulgadasACentimetrosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PulgadasACentimetrosResult" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CentimetrosAPulgadas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="centimetros" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CentimetrosAPulgadasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CentimetrosAPulgadasResult" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

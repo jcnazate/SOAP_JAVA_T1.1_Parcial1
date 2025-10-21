@@ -1,0 +1,7 @@
+C:\Users\David\Desktop\Universidad\Semestres\Octavo Semestre\Arquitectura Software\00_SOA_SIN_BDD\001.SOAP_DOTNET_CONUNI_GR05\02.CLICON\CLICLON_CONUNI_GR05\CLICLON_CONUNI_GR05\bin\Debug\CLICLON_CONUNI_GR05.exe.config
+C:\Users\David\Desktop\Universidad\Semestres\Octavo Semestre\Arquitectura Software\00_SOA_SIN_BDD\001.SOAP_DOTNET_CONUNI_GR05\02.CLICON\CLICLON_CONUNI_GR05\CLICLON_CONUNI_GR05\bin\Debug\CLICLON_CONUNI_GR05.exe
+C:\Users\David\Desktop\Universidad\Semestres\Octavo Semestre\Arquitectura Software\00_SOA_SIN_BDD\001.SOAP_DOTNET_CONUNI_GR05\02.CLICON\CLICLON_CONUNI_GR05\CLICLON_CONUNI_GR05\bin\Debug\CLICLON_CONUNI_GR05.pdb
+C:\Users\David\Desktop\Universidad\Semestres\Octavo Semestre\Arquitectura Software\00_SOA_SIN_BDD\001.SOAP_DOTNET_CONUNI_GR05\02.CLICON\CLICLON_CONUNI_GR05\CLICLON_CONUNI_GR05\obj\Debug\CLICLON_CONUNI_GR05.csproj.AssemblyReference.cache
+C:\Users\David\Desktop\Universidad\Semestres\Octavo Semestre\Arquitectura Software\00_SOA_SIN_BDD\001.SOAP_DOTNET_CONUNI_GR05\02.CLICON\CLICLON_CONUNI_GR05\CLICLON_CONUNI_GR05\obj\Debug\CLICLON_CONUNI_GR05.csproj.CoreCompileInputs.cache
+C:\Users\David\Desktop\Universidad\Semestres\Octavo Semestre\Arquitectura Software\00_SOA_SIN_BDD\001.SOAP_DOTNET_CONUNI_GR05\02.CLICON\CLICLON_CONUNI_GR05\CLICLON_CONUNI_GR05\obj\Debug\CLICLON_CONUNI_GR05.exe
+C:\Users\David\Desktop\Universidad\Semestres\Octavo Semestre\Arquitectura Software\00_SOA_SIN_BDD\001.SOAP_DOTNET_CONUNI_GR05\02.CLICON\CLICLON_CONUNI_GR05\CLICLON_CONUNI_GR05\obj\Debug\CLICLON_CONUNI_GR05.pdb

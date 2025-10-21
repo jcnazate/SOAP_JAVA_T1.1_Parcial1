@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = "Conversión de Unidades";
+}
+
+<style>
+    body {
+        background-color: #3B73B9;
+        font-family: Arial, sans-serif;
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    .titulo {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 30px 0;
+    }
+
+    .contenedor-principal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        padding: 20px;
+    }
+
+    .formulario-conversion {
+        background-color: rgba(0, 0, 0, 0.1);
+        padding: 30px 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .seccion {
+        margin-bottom: 30px;
+    }
+
+        .seccion label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+    .fila {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+        .fila input[type="number"] {
+            width: 120px;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .fila .resultado {
+            width: 120px;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            background-color: #f8f8f8;
+            color: black;
+        }
+
+        .fila button {
+            padding: 8px 16px;
+            background-color: #D9FF6A;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+    .monster-img {
+        max-width: 250px;
+    }
+
+    .cerrar-sesion {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+    }
+</style>
+
+<div class="titulo">Conversión de Unidades</div>
+
+<div class="contenedor-principal">
+    <div class="formulario-conversion">
+
+        <div class="seccion">
+            <label>DE PULGADAS A CENTÍMETROS:</label>
+            <form method="post" asp-action="Convertir">
+                <div class="fila">
+                    <label>Valor a convertir:</label>
+                    <input type="number" name="cantidad" required />
+                    <span>in</span>
+                    <button type="submit" name="tipo" value="cm">Convertir</button>
+                    <label>Resultado:</label>
+                    <input class="resultado" readonly value="@ViewBag.ResultadoCm" />
+                    <span>cm</span>
+                </div>
+            </form>
+        </div>
+
+        <div class="seccion">
+            <label>DE CENTÍMETROS A PULGADAS:</label>
+            <form method="post" asp-action="Convertir">
+                <div class="fila">
+                    <label>Valor a convertir:</label>
+                    <input type="number" name="cantidad" required />
+                    <span>cm</span>
+                    <button type="submit" name="tipo" value="in">Convertir</button>
+                    <label>Resultado:</label>
+                    <input class="resultado" readonly value="@ViewBag.ResultadoIn" />
+                    <span>in</span>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <img src="~/Imagenes/monsterConversion.png" alt="Monsters" class="monster-img" />
+</div>
